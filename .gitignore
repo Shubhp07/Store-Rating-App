@@ -1,0 +1,12 @@
+# Dependencies
+Backend/node_modules/
+
+# Local Environment Variables
+Backend/.env
+
+# Local JWT tokens
+admin_token.txt
+user_token.txt
+
+# Logs
+Backend/*.log

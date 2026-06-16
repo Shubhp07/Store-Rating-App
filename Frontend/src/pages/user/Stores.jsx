@@ -3,7 +3,7 @@ import api from '../../api/axios';
 import { useToast } from '../../hooks/useToast';
 import StoreCard from '../../components/user/StoreCard';
 import RatingModal from '../../components/user/RatingModal';
-import Spinner from '../../components/common/Spinner';
+import { SkeletonGrid } from '../../components/common/Skeletons';
 
 const Stores = () => {
   const [stores, setStores] = useState([]);
@@ -49,42 +49,42 @@ const Stores = () => {
     <div className="space-y-8 animate-slideUp">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Browse Stores</h2>
-          <p className="text-gray-500 font-medium mt-1">Discover, review, and rate your favorite stores.</p>
+          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Browse Stores</h2>
+          <p className="text-gray-500 dark:text-gray-400 font-medium mt-1">Discover, review, and rate your favorite stores.</p>
         </div>
       </div>
 
-      <div className="bg-white p-5 rounded-3xl shadow-sm border border-gray-100 flex flex-wrap gap-5 items-end">
+      <div className="bg-white dark:bg-gray-800 p-5 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-wrap gap-5 items-end transition-colors duration-200">
         <div className="flex-1 min-w-[200px]">
-          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Search Name</label>
+          <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Search Name</label>
           <div className="relative">
-            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             <input 
               type="text" 
               placeholder="Filter by name..." 
-              className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all text-gray-900 font-medium"
+              className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-all text-gray-900 dark:text-gray-100 font-medium"
               value={filters.name}
               onChange={(e) => setFilters({...filters, name: e.target.value})}
             />
           </div>
         </div>
         <div className="flex-1 min-w-[200px]">
-          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Search Address</label>
+          <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Search Address</label>
           <div className="relative">
-            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             <input 
               type="text" 
               placeholder="Filter by address..." 
-              className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all text-gray-900 font-medium"
+              className="w-full pl-11 pr-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-all text-gray-900 dark:text-gray-100 font-medium"
               value={filters.address}
               onChange={(e) => setFilters({...filters, address: e.target.value})}
             />
           </div>
         </div>
         <div className="w-56">
-          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Sort By</label>
+          <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Sort By</label>
           <select 
-            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all text-gray-900 font-medium"
+            className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-all text-gray-900 dark:text-gray-100 font-medium"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
           >
@@ -95,9 +95,7 @@ const Stores = () => {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <Spinner size="w-12 h-12" />
-        </div>
+        <SkeletonGrid count={6} />
       ) : stores.length === 0 ? (
         <div className="bg-white rounded-3xl p-16 text-center shadow-sm border border-gray-100">
           <svg className="w-20 h-20 text-gray-300 mx-auto mb-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

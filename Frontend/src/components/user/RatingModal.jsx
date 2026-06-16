@@ -46,8 +46,8 @@ const RatingModal = ({ isOpen, onClose, store, onRatingSubmit }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={store.user_rating ? "Modify Your Rating" : "Rate This Store"}>
       <div className="text-center mb-6">
-        <h4 className="text-xl font-extrabold text-gray-900">{store.name}</h4>
-        <p className="text-sm text-gray-500 mt-1">How would you rate your experience here?</p>
+        <h4 className="text-xl font-extrabold text-gray-900 dark:text-white">{store.name}</h4>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">How would you rate your experience here?</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 flex flex-col items-center">
@@ -63,7 +63,7 @@ const RatingModal = ({ isOpen, onClose, store, onRatingSubmit }) => {
             >
               <svg 
                 className={`w-14 h-14 transition-colors duration-200 ${
-                  star <= (hoverRating || rating) ? 'text-amber-400 drop-shadow-md' : 'text-gray-200'
+                  star <= (hoverRating || rating) ? 'text-amber-400 drop-shadow-md' : 'text-gray-200 dark:text-gray-700'
                 }`} 
                 fill="currentColor" 
                 viewBox="0 0 20 20"
@@ -74,13 +74,13 @@ const RatingModal = ({ isOpen, onClose, store, onRatingSubmit }) => {
           ))}
         </div>
 
-        <div className="text-sm font-bold text-indigo-700 bg-indigo-50 px-5 py-2.5 rounded-xl border border-indigo-100">
+        <div className="text-sm font-bold text-indigo-700 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 px-5 py-2.5 rounded-xl border border-indigo-100 dark:border-indigo-800">
           {rating === 0 ? 'Select Stars' : `${rating} out of 5 Stars`}
         </div>
 
-        <div className="w-full pt-4 border-t border-gray-100">
+        <div className="w-full pt-4 border-t border-gray-100 dark:border-gray-700">
           <button type="submit" disabled={loading || rating === 0}
-            className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-bold shadow-[0_8px_16px_-6px_rgba(79,70,229,0.5)] hover:shadow-[0_12px_20px_-6px_rgba(79,70,229,0.6)] hover:from-indigo-500 hover:to-violet-500 focus:ring-4 focus:ring-indigo-300 transform transition-all duration-200 active:scale-[0.98] disabled:opacity-70">
+            className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-bold shadow-[0_8px_16px_-6px_rgba(79,70,229,0.5)] hover:shadow-[0_12px_20px_-6px_rgba(79,70,229,0.6)] hover:from-indigo-500 hover:to-violet-500 focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800 transform transition-all duration-200 active:scale-[0.98] disabled:opacity-70">
             {loading ? 'Submitting...' : 'Submit Rating'}
           </button>
         </div>

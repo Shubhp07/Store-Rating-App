@@ -47,33 +47,33 @@ const AddUserModal = ({ isOpen, onClose, onUserAdded }) => {
     <Modal isOpen={isOpen} onClose={onClose} title="Add New User">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
+          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
           <input name="name" type="text" required
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 hover:bg-white text-gray-900"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white"
             value={formData.name} onChange={handleChange} />
           {errors.name && <p className="text-red-500 text-xs font-semibold mt-1">{errors.name}</p>}
         </div>
         
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">Email</label>
+          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Email</label>
           <input name="email" type="email" required
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 hover:bg-white text-gray-900"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white"
             value={formData.email} onChange={handleChange} />
           {errors.email && <p className="text-red-500 text-xs font-semibold mt-1">{errors.email}</p>}
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">Password</label>
+          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Password</label>
           <input name="password" type="password" required
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 hover:bg-white text-gray-900"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white"
             value={formData.password} onChange={handleChange} />
           {errors.password && <p className="text-red-500 text-xs font-semibold mt-1">{errors.password}</p>}
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">Role</label>
+          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Role</label>
           <select name="role" required
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 hover:bg-white text-gray-900"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white"
             value={formData.role} onChange={handleChange}>
             <option value="user">Normal User</option>
             <option value="store_owner">Store Owner</option>
@@ -82,16 +82,16 @@ const AddUserModal = ({ isOpen, onClose, onUserAdded }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">Address</label>
+          <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Address</label>
           <textarea name="address" required rows="2"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 hover:bg-white text-gray-900 resize-none"
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50/50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white resize-none"
             value={formData.address} onChange={handleChange}></textarea>
           {errors.address && <p className="text-red-500 text-xs font-semibold mt-1">{errors.address}</p>}
         </div>
 
         <div className="pt-4 pb-2">
           <button type="submit" disabled={loading}
-            className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-indigo-500 hover:to-violet-500 focus:ring-4 focus:ring-indigo-300 transform transition-all duration-200 active:scale-95 disabled:opacity-70 flex justify-center items-center">
+            className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-indigo-500 hover:to-violet-500 focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800 transform transition-all duration-200 active:scale-95 disabled:opacity-70 flex justify-center items-center">
             {loading ? 'Creating...' : 'Create User'}
           </button>
         </div>

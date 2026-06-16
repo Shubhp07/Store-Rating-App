@@ -3,7 +3,7 @@ import api from '../../api/axios';
 import { useToast } from '../../hooks/useToast';
 import Table from '../../components/common/Table';
 import AddStoreModal from '../../components/admin/AddStoreModal';
-import Spinner from '../../components/common/Spinner';
+import { SkeletonTable } from '../../components/common/Skeletons';
 
 const Stores = () => {
   const [stores, setStores] = useState([]);
@@ -71,8 +71,8 @@ const Stores = () => {
     <div className="space-y-6 animate-slideUp">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Manage Stores</h2>
-          <p className="text-gray-500 font-medium mt-1">View and manage registered stores across the platform.</p>
+          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Manage Stores</h2>
+          <p className="text-gray-500 dark:text-gray-400 font-medium mt-1">View and manage registered stores across the platform.</p>
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
@@ -85,23 +85,23 @@ const Stores = () => {
         </button>
       </div>
 
-      <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-wrap gap-5 items-end">
+      <div className="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-wrap gap-5 items-end transition-colors duration-200">
         <div className="flex-1 min-w-[200px]">
-          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Search Name</label>
+          <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Search Name</label>
           <input 
             type="text" 
             placeholder="Filter by name..." 
-            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all text-gray-900"
+            className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-all text-gray-900 dark:text-gray-100"
             value={filters.name}
             onChange={(e) => setFilters({...filters, name: e.target.value})}
           />
         </div>
         <div className="flex-1 min-w-[200px]">
-          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Search Address</label>
+          <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Search Address</label>
           <input 
             type="text" 
             placeholder="Filter by address..." 
-            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all text-gray-900"
+            className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition-all text-gray-900 dark:text-gray-100"
             value={filters.address}
             onChange={(e) => setFilters({...filters, address: e.target.value})}
           />
@@ -109,9 +109,7 @@ const Stores = () => {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center h-64 bg-white rounded-2xl shadow-sm border border-gray-100">
-          <Spinner />
-        </div>
+        <SkeletonTable columns={4} rows={6} />
       ) : (
         <Table 
           columns={columns} 

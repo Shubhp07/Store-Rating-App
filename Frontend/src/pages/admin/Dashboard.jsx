@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../api/axios';
 import { useToast } from '../../hooks/useToast';
 import StatCard from '../../components/common/StatCard';
-import Spinner from '../../components/common/Spinner';
+import { SkeletonStatCard } from '../../components/common/Skeletons';
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -26,8 +26,16 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-[60vh]">
-        <Spinner size="w-12 h-12" />
+      <div className="space-y-8 animate-slideUp">
+        <div>
+          <div className="h-8 w-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mb-2"></div>
+          <div className="h-4 w-64 bg-gray-200 dark:bg-gray-700 rounded-md animate-pulse"></div>
+        </div>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <SkeletonStatCard />
+          <SkeletonStatCard />
+          <SkeletonStatCard />
+        </div>
       </div>
     );
   }
@@ -35,8 +43,8 @@ const Dashboard = () => {
   return (
     <div className="space-y-8 animate-slideUp">
       <div>
-        <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">System Overview</h2>
-        <p className="text-gray-500 mt-1 font-medium">Welcome to the Administrator Control Panel.</p>
+        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">System Overview</h2>
+        <p className="text-gray-500 dark:text-gray-400 mt-1 font-medium">Welcome to the Administrator Control Panel.</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

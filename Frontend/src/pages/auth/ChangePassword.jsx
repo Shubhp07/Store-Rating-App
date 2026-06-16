@@ -39,45 +39,45 @@ const ChangePassword = () => {
 
   return (
     <div className="max-w-md mx-auto mt-10 animate-slideUp">
-      <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 relative overflow-hidden">
-        <div className="absolute -top-16 -right-16 w-32 h-32 bg-indigo-50 rounded-full opacity-50 blur-xl"></div>
-        <div className="absolute -bottom-16 -left-16 w-40 h-40 bg-pink-50 rounded-full opacity-50 blur-xl"></div>
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-xl dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700 relative overflow-hidden transition-colors duration-200">
+        <div className="absolute -top-16 -right-16 w-32 h-32 bg-indigo-50 dark:bg-indigo-900/20 rounded-full opacity-50 blur-xl"></div>
+        <div className="absolute -bottom-16 -left-16 w-40 h-40 bg-pink-50 dark:bg-pink-900/10 rounded-full opacity-50 blur-xl"></div>
         
         <div className="relative z-10">
-          <h2 className="text-2xl font-extrabold text-gray-900 mb-2">Change Password</h2>
-          <p className="text-gray-500 text-sm mb-8 font-medium">Ensure your account is using a long, random password to stay secure.</p>
+          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-2">Change Password</h2>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-8 font-medium">Ensure your account is using a long, random password to stay secure.</p>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">Current Password</label>
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Current Password</label>
               <input 
                 name="oldPassword" 
                 type="password" 
                 required
-                className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50 hover:bg-white text-gray-900 font-medium"
+                className="w-full px-5 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/20 dark:focus:ring-indigo-500/40 outline-none transition-all duration-200 bg-gray-50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium"
                 value={formData.oldPassword} 
                 onChange={handleChange} 
               />
             </div>
             
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">New Password</label>
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">New Password</label>
               <input 
                 name="newPassword" 
                 type="password" 
                 required
-                className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20 outline-none transition-all duration-200 bg-gray-50 hover:bg-white text-gray-900 font-medium"
+                className="w-full px-5 py-3.5 rounded-xl border border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-4 focus:ring-indigo-500/20 dark:focus:ring-indigo-500/40 outline-none transition-all duration-200 bg-gray-50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-800 text-gray-900 dark:text-white font-medium"
                 value={formData.newPassword} 
                 onChange={handleChange} 
               />
-              {errors.newPassword && <p className="text-red-500 text-xs font-semibold mt-2">{errors.newPassword}</p>}
+              {errors.newPassword && <p className="text-red-500 dark:text-red-400 text-xs font-semibold mt-2">{errors.newPassword}</p>}
             </div>
 
             <div className="pt-2">
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-indigo-500 hover:to-violet-500 focus:ring-4 focus:ring-indigo-300 transform transition-all duration-200 active:scale-95 disabled:opacity-70"
+                className="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-indigo-500 hover:to-violet-500 focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800 transform transition-all duration-200 active:scale-95 disabled:opacity-70"
               >
                 {loading ? 'Updating...' : 'Update Password'}
               </button>

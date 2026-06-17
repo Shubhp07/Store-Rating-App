@@ -48,6 +48,15 @@ const submitRating = async (req, res) => {
     return res.status(400).json({ message: 'Rating must be between 1 and 5' });
 
   try {
+    // Check if user is suspended
+    const [user] = await sequelize.query(
+      `SELECT is_suspended FROM users WHERE id = $1`,
+      { bind: [req.user.id], type: sequelize.QueryTypes.SELECT }
+    );
+    if (user?.is_suspended) {
+      return res.status(403).json({ message: 'Your account has been suspended' });
+    }
+
     // Check store exists
     const [store] = await sequelize.query(
       `SELECT id FROM stores WHERE id = $1`,
@@ -82,6 +91,15 @@ const updateRating = async (req, res) => {
     return res.status(400).json({ message: 'Rating must be between 1 and 5' });
 
   try {
+    // Check if user is suspended
+    const [user] = await sequelize.query(
+      `SELECT is_suspended FROM users WHERE id = $1`,
+      { bind: [req.user.id], type: sequelize.QueryTypes.SELECT }
+    );
+    if (user?.is_suspended) {
+      return res.status(403).json({ message: 'Your account has been suspended' });
+    }
+
     // Make sure this rating belongs to the logged-in user
     const [existing] = await sequelize.query(
       `SELECT id FROM ratings WHERE id = $1 AND user_id = $2`,

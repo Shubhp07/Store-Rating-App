@@ -3,13 +3,45 @@ import api from '../../api/axios';
 import { useToast } from '../../hooks/useToast';
 import Table from '../../components/common/Table';
 import AddUserModal from '../../components/admin/AddUserModal';
+import EditUserModal from '../../components/admin/EditUserModal';
+import DeleteConfirmModal from '../../components/common/DeleteConfirmModal';
 import { SkeletonTable } from '../../components/common/Skeletons';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const { addToast } = useToast();
+
+  const handleEditClick = (user) => {
+    setSelectedUser(user);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDeleteClick = (user) => {
+    setSelectedUser(user);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!selectedUser) return;
+    setDeleteLoading(true);
+    try {
+      await api.delete(`/admin/users/${selectedUser.id}`);
+      addToast('User deleted successfully!', 'success');
+      fetchUsers();
+      setIsDeleteModalOpen(false);
+      setSelectedUser(null);
+    } catch (err) {
+      addToast(err.response?.data?.message || 'Failed to delete user', 'error');
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
 
   const [filters, setFilters] = useState({ name: '', email: '', role: '' });
   const [sortBy, setSortBy] = useState('name');
@@ -52,7 +84,7 @@ const Users = () => {
       key: 'address', 
       label: 'Address', 
       sortable: true, 
-      render: (row) => <span className="text-gray-500 block max-w-[250px] truncate" title={row.address}>{row.address}</span> 
+      render: (row) => <span className="text-gray-500 dark:text-gray-400 block max-w-[250px] truncate" title={row.address}>{row.address}</span> 
     },
     { 
       key: 'role', 
@@ -66,6 +98,45 @@ const Users = () => {
         }`}>
           {row.role.replace('_', ' ')}
         </span>
+      )
+    },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: false,
+      render: (row) => (
+        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold capitalize shadow-sm ${
+          row.is_suspended ? 'bg-red-100 text-red-800 border border-red-200' : 'bg-green-100 text-green-800 border border-green-200'
+        }`}>
+          {row.is_suspended ? 'Suspended' : 'Active'}
+        </span>
+      )
+    },
+    {
+      key: 'actions',
+      label: 'Actions',
+      sortable: false,
+      render: (row) => (
+        <div className="flex gap-2">
+          <button
+            onClick={() => handleEditClick(row)}
+            className="p-1.5 text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors duration-150"
+            title="Edit User"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+          </button>
+          <button
+            onClick={() => handleDeleteClick(row)}
+            className="p-1.5 text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors duration-150"
+            title="Delete User"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        </div>
       )
     }
   ];
@@ -125,7 +196,7 @@ const Users = () => {
       </div>
 
       {loading ? (
-        <SkeletonTable columns={4} rows={6} />
+        <SkeletonTable columns={6} rows={6} />
       ) : (
         <Table 
           columns={columns} 
@@ -140,6 +211,28 @@ const Users = () => {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         onUserAdded={fetchUsers}
+      />
+
+      <EditUserModal 
+        isOpen={isEditModalOpen} 
+        onClose={() => {
+          setIsEditModalOpen(false);
+          setSelectedUser(null);
+        }} 
+        user={selectedUser}
+        onUserUpdated={fetchUsers}
+      />
+
+      <DeleteConfirmModal 
+        isOpen={isDeleteModalOpen} 
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setSelectedUser(null);
+        }} 
+        onConfirm={handleDeleteConfirm}
+        title="Delete User"
+        message={`Are you sure you want to delete user ${selectedUser?.name} (${selectedUser?.email})?`}
+        loading={deleteLoading}
       />
     </div>
   );
